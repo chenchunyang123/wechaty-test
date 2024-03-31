@@ -1,0 +1,29 @@
+{
+  "name": "wechaty-test",
+  "version": "0.1.2",
+  "description": "use for wechaty-puppet-padlocal",
+  "author": "chenchunyang",
+  "dependencies": {
+    "crawler": "^1.5.0",
+    "node-json-db": "^2.3.0",
+    "qrcode-terminal": "^0.12.0",
+    "wechaty": "^1.19.10",
+    "wechaty-puppet": "^1.19.6",
+    "wechaty-puppet-padlocal": "^1.11.18"
+  },
+  "devDependencies": {
+    "@types/crawler": "^1.2.6",
+    "@types/qrcode-terminal": "^0.12.2",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "scripts": {
+    "start": "npx ts-node main.ts",
+    "test": "npx ts-node get-house.ts"
+  },
+  "engines": {
+    "node": ">= 16",
+    "npm": ">=7"
+  }
+}
