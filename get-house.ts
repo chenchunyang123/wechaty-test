@@ -14,7 +14,6 @@ function getInstance(
   errorFn = (res: any) => {}
 ) {
   return new Crawler({
-    rateLimit: 1000,
     callback: async (
       error: Error,
       res: CrawlerRequestResponse,
@@ -42,16 +41,12 @@ function getInstance(
                 .find(".content__list--item--des")
                 .text()
                 .match(/\d+\.\d+㎡/) || [];
-            const img = $item
-              .find(".content__list--item--aside img")
-              .attr("src");
             list.push({
               id,
               title,
               price,
               link,
               area: area[0],
-              img,
             });
           });
 
