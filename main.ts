@@ -1,6 +1,7 @@
 import { Message, ScanStatus, WechatyBuilder, log } from "wechaty";
 import qrcodeTerminal from "qrcode-terminal";
-import { runHtml, getInstance } from './get-house';
+import schedule from "node-schedule";
+import { runHtml, getInstance } from "./get-house";
 
 const bot = WechatyBuilder.build({
   name: "ccy-bot", // 名字随意
@@ -34,7 +35,26 @@ async function onMessage(msg: Message) {
 async function onLogin(user: any) {
   console.log(`${user}登录了`);
   const room = await bot.Room.find({ topic: "机器小老弟" });
-  await room?.say?.("welcome to wechaty!");
+  // 创建实例
+  const instance = getInstance(
+    (res = []) => {
+      res.forEach((item) => {
+        room?.say?.(JSON.stringify(item));
+      });
+    },
+    (err) => {
+      console.log("err :>> ", err);
+      room?.say?.("抓取任务失败:" + JSON.stringify(err));
+    }
+  );
+  // 定义规则
+  const rule = new schedule.RecurrenceRule();
+  // 设置执行时间在每个小时的0和30分钟
+  rule.minute = [10, 30];
+  // 创建定时任务
+  schedule.scheduleJob(rule, () => {
+    runHtml(instance);
+  });
 }
 
 bot.on("scan", onScan);

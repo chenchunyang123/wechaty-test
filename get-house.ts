@@ -84,7 +84,4 @@ function getInstance(
   });
 }
 
-const c = getInstance();
-runHtml(c);
-
 export { runHtml, getInstance };
